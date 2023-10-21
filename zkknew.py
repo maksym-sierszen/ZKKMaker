@@ -14,6 +14,9 @@ class Word():
     self.pattern = ""
     self.variationAmount = 0
     self.splitter = ""
+    self.before = ""
+    self.after = ""
+    self.variation = 1
 
   def getData(self, wordFile):
     self.document = docx2txt.process(wordFile)
@@ -29,47 +32,70 @@ class Word():
     else:
         return None
 
-  def splitText(self, before, after, splitter):
-    # daj do zmiennej foundation tekst do momentu az seriesname[:-1] + '2]'
-    # splitter = self.seriesName[:-1] + '02'  # to bedzie sie wypierdalalo jesli w docx bedzie format bez zera, trzeba zrobic mechanizm poprawiajacy to potem jak bedzie case taki
-    # parts = self.document.split(splitter)
-    # foundationText = parts[0]
-    # variationsText = splitter.join(parts[1:]) if len(parts) > 1 else ""
-    # print(variationsText)
-    # # return foundationText, variationsText
-    # self.variationBlocks = variationsText.
-    # daj do zmiennej foundation tekst do momentu az seriesname[:-1] + '2]'
-   # to bedzie sie wypierdalalo jesli w docx bedzie format bez zera, trzeba zrobic mechanizm poprawiajacy to potem jak bedzie case taki
-    # test
+    # INNA PRÓBA KONCEPCJI USUWANIA NUMERKOW Z TEKSTU
+    # if(self.textBlocks[0][-3] == '0'):
+    #   text = print(self.textBlocks[0][:-2])
+    #   textNew = print(self.textBlocks[0][:-3] + ']')
+    #   self.document = self.document.replace(text, textNew)
+      
 
-    # Warunek zakończenia rekursji
-        if variation > self.variationAmounta:
-          return
+  def splitText(self, before, after, splitter, variation):
+    # to bedzie sie wypierdalalo jesli w docx bedzie format bez zera
+    if variation > self.variationAmount:
+      return
 
-        # Generowanie wartości splitter
-        if variation == 1:
-            splitter = self.seriesName[:-1] + '02'  
-            parts = self.document.split(splitter)
-            before = parts[0]
-            after = splitter.join(parts[1:]) if len(parts) > 1 else ""
-            self.variationBlocks.append(before)
-        else:
-          if variation < 10:
-            splitter = self.seriesName[:-1] + '0' + str(variation)
-          else:
-            splitter = self.seriesName[:-1] + str(variation)
 
-          parts = after.split(splitter)
-          before = parts[0]
-          after = splitter.join(parts[1:]) if len(parts) > 1 else ""
-          self.variationBlocks.append(before)  # Dodajemy do listy
+    # wersja dla formatu z 0
+    # if variation == 1:
+    #     splitter = self.seriesName[:-1] + '02]'  
+    #     parts = self.document.split(splitter)
+    #     before = parts[0] 
+    #     after = splitter + splitter.join(parts[1:]) if len(parts) > 1 else ""
+    #     self.variationBlocks.append(before)
+    # else:
+    #   if variation < 9:
+    #     splitter = self.seriesName[:-1] + '0' + str(variation+1) + ']'
+    #   else:
+    #     splitter = self.seriesName[:-1] + str(variation+1) + ']'
 
-        # Rekursywne wywołanie z nowymi wartościami
-        self.splitText(before, after, splitter, variation+1)
+    # wersja dla formatu bez 0
+    if variation == 1:
+        splitter = self.seriesName[:-1] + '2]'  
+        parts = self.document.split(splitter)
+        before = parts[0] 
+        after = splitter + splitter.join(parts[1:]) if len(parts) > 1 else ""
+        self.variationBlocks.append(before)
+    else:
+        splitter = self.seriesName[:-1] + str(variation+1) + ']'
+
+      # KONCEPCJA MECHANIZMU USUWAJACEGO TE NUMERKI W TEKSCIE
+      # print(self.pattern)
+      # matches = list(re.finditer(self.pattern , after))
+      # print(matches)
+      # for match in matches[:1]:
+      #   after = after.replace(match.group(), self.seriesName[:-1])
+
+        parts = after.split(splitter)
+        before = parts[0] 
+
+        
+
+
+        after = splitter + splitter.join(parts[1:]) if len(parts) > 1 else ""
+        self.variationBlocks.append(before)  # Dodajemy do listy
+
+    # Rekursywne wywołanie z nowymi wartościami
+    return self.splitText(before, after, splitter, variation+1)
 
 word = Word()
-word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity R550 [S].docx")
-word.splitText(word.before, word.after, word.splitter)
+word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity X510 [I].docx")
+word.splitText(word.before, word.after, word.splitter, word.variation)
+
+
+for i, block in enumerate(word.variationBlocks):
+    print(f"\n---WERSJA {i+1}---")
+    print(block)
+
 
 #word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity R550 [S].docx")
 
