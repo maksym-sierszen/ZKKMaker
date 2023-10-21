@@ -74,7 +74,7 @@ word.splitText(word.before, word.after, word.splitter)
 #word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity R550 [S].docx")
 
 #sprawdź ilość modeli w pliku Word
-
+#test
 # print(checkvariationAmount(r"Opis Komputronik Infinity R550 [S].docx"))
 
 
