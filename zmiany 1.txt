@@ -1,0 +1,43 @@
+Komputronik Infinity R550 [S02]
+Zmiana: System operacyjny Windows 11 Home
+
+Komputronik Infinity R550 [S03]
+Zmiana: Dysk HDD 2 TB
+
+Komputronik Infinity R550 [S04]
+Zmiana1: Dysk HDD 2 TB
+Zmiana2: System operacyjny Windows 11 Home
+
+Komputronik Infinity R550 [S05]
+Zmiana: Pamięć operacyjna – 32 GB 3600 MHz w dwóch modułach
+
+Komputronik Infinity R550 [S06]
+Zmiana1: Pamięć operacyjna – 32 GB 3600 MHz w dwóch modułach
+Zmiana2: System operacyjny Windows 11 Home
+
+Komputronik Infinity R550 [S07]
+Zmiana1: Pamięć operacyjna – 32 GB 3600 MHz w dwóch modułach
+Zmiana2: Dysk HDD 2 TB
+
+Komputronik Infinity R550 [S08]
+Zmiana1: Pamięć operacyjna – 32 GB 3600 MHz w dwóch modułach
+Zmiana2: Dysk HDD 2 TB
+Zmiana3: System operacyjny Windows 11 Home
+
+Komputronik Infinity R550 [S09]
+Zmiana1: Pamięć operacyjna – 32 GB 3600 MHz w dwóch modułach
+Zmiana2: Dysk SSD M.2 o pojemności 2 TB
+
+Komputronik Infinity R550 [S10]
+Zmiana1: Pamięć operacyjna – 32 GB 3600 MHz w dwóch modułach
+Zmiana2: Dysk SSD M.2 o pojemności 2 TB
+Zmiana3: System operacyjny Windows 11 Home
+
+Komputronik Infinity R550 [S11]
+Zmiana1: Pamięć operacyjna – 32 GB 3600 MHz w dwóch modułach
+Zmiana2: Dysk SSD M.2 o pojemności 2 TB
+Zmiana3: Dysk HDD 4 TB
+
+Komputronik Infinity R550 [S12]
+Zmiana1: Pamięć operacyjna – 32 GB 3600 MHz w dwóch modułach
+Zmiana2: Dysk SSD M.2 o pojemności 2 TB
