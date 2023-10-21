@@ -67,7 +67,6 @@ class Word():
         # Rekursywne wywołanie z nowymi wartościami
         self.splitText(before, after, splitter, variation+1)
 
-
 word = Word()
 word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity R550 [S].docx")
 word.splitText(word.before, word.after, word.splitter)
