@@ -26,18 +26,30 @@ class Word():
     
     self.pattern = re.escape(self.seriesName[:-1]) + r'(\d+)'
     allFinds = re.findall(self.pattern, self.document)
+ 
+    
     if allFinds:
         self.variationAmount = int(allFinds[-1])
         return self.variationAmount
     else:
         return None
 
-    # INNA PRÓBA KONCEPCJI USUWANIA NUMERKOW Z TEKSTU
-    # if(self.textBlocks[0][-3] == '0'):
-    #   text = print(self.textBlocks[0][:-2])
-    #   textNew = print(self.textBlocks[0][:-3] + ']')
-    #   self.document = self.document.replace(text, textNew)
-      
+
+  def simplifyVariation(self, after, seriesName):
+    base = seriesName[:-1]
+    toSimplify = re.escape(base) + ".{0,3}"
+    replaced_patterns = {}
+
+    def replacement(match):
+        
+        if replaced_patterns.get(match.group(), False):
+            return base + "]"
+        replaced_patterns[match.group()] = True
+        return match.group()
+
+    return re.sub(toSimplify, replacement, after)
+
+
 
   def splitText(self, before, after, splitter, variation):
     # to bedzie sie wypierdalalo jesli w docx bedzie format bez zera
@@ -46,49 +58,49 @@ class Word():
 
 
     # wersja dla formatu z 0
-    # if variation == 1:
-    #     splitter = self.seriesName[:-1] + '02]'  
-    #     parts = self.document.split(splitter)
-    #     before = parts[0] 
-    #     after = splitter + splitter.join(parts[1:]) if len(parts) > 1 else ""
-    #     self.variationBlocks.append(before)
-    # else:
-    #   if variation < 9:
-    #     splitter = self.seriesName[:-1] + '0' + str(variation+1) + ']'
-    #   else:
-    #     splitter = self.seriesName[:-1] + str(variation+1) + ']'
-
-    # wersja dla formatu bez 0
     if variation == 1:
-        splitter = self.seriesName[:-1] + '2]'  
+        splitter = self.seriesName[:-1] + '02]'  
+
         parts = self.document.split(splitter)
         before = parts[0] 
+
         after = splitter + splitter.join(parts[1:]) if len(parts) > 1 else ""
+        after = self.simplifyVariation(after, self.seriesName)
         self.variationBlocks.append(before)
     else:
-        splitter = self.seriesName[:-1] + str(variation+1) + ']'
-
-      # KONCEPCJA MECHANIZMU USUWAJACEGO TE NUMERKI W TEKSCIE
-      # print(self.pattern)
-      # matches = list(re.finditer(self.pattern , after))
-      # print(matches)
-      # for match in matches[:1]:
-      #   after = after.replace(match.group(), self.seriesName[:-1])
-
-        parts = after.split(splitter)
-        before = parts[0] 
-
+      if variation < 9:
+        splitter = self.seriesName[:-1] + '0' + str(variation+1) + ']'
         
+      else:
+        splitter = self.seriesName[:-1] + str(variation+1) + ']'
+      # wersja dla formatu bez 0
+      # if variation == 1:
+      #     splitter = self.seriesName[:-1] + '2]'  
+      #     parts = self.document.split(splitter)
+      #     before = parts[0] 
+      #     after = splitter + splitter.join(parts[1:]) if len(parts) > 1 else ""
+      #     self.variationBlocks.append(before)
+      # else:
+      #     splitter = self.seriesName[:-1] + str(variation+1) + ']'
 
+        # KONCEPCJA MECHANIZMU USUWAJACEGO TE NUMERKI W TEKSCIE
+        # print(self.pattern)
+        # matches = list(re.finditer(self.pattern , after))
+        # print(matches)
+        # for match in matches[:1]:
+        #   after = after.replace(match.group(), self.seriesName[:-1])
 
-        after = splitter + splitter.join(parts[1:]) if len(parts) > 1 else ""
-        self.variationBlocks.append(before)  # Dodajemy do listy
-
+      parts = after.split(splitter)
+      before = parts[0]
+      after = splitter + splitter.join(parts[1:]) if len(parts) > 1 else ""
+      self.variationBlocks.append(before)  # Dodajemy do listy
+        
     # Rekursywne wywołanie z nowymi wartościami
     return self.splitText(before, after, splitter, variation+1)
 
 word = Word()
-word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity X510 [I].docx")
+# word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity X510 [I].docx")
+word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity R550 [S].docx")
 word.splitText(word.before, word.after, word.splitter, word.variation)
 
 
