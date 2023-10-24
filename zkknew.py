@@ -98,6 +98,28 @@ class Word():
     # Rekursywne wywołanie z nowymi wartościami
     return self.splitText(before, after, splitter, variation+1)
 
+class Template():
+
+  # 1 analiza co róźni  Ultimate, Pro, Infinity w szablonach -> czyli znalezienie odpowiedzi na pytanie czy mozna doklejac cssa na koncu czy trzeba miec oddzielne szablony
+
+  # pre - 2: wykrywanie serii na podstawie nazwy pliku po to aby dopasować css albo cały szablon
+
+  # 2 kompozycja bloków szablonowych 
+  #   2a jeśli trzeba kaźdą serię rozdzielać na swoje własne bloki to template_blocks/nazwa_serii/hdd-blok | grafika-blok itp
+  #   2b jeśli moźna ten sam szkielet to jedno do kaźdego i potem nakładać na to cssa
+
+  # 3 ustalenie kolejności bloków dla bazy
+
+  # 4 mechanizm wklejania danych do bloków na podstawie danych z worda (kazdy blok oprocz pierwszego tego banerka ma header i p, to rozdzielenie tego moze jakos na dwie czesci, ale za to jak wariant ma kilka modyfikacji to bedzie wiecej niz 2 czesci, tylko np 4, 6, 8 itd i tam to juz ciezej bedzie jakos porozdzielac ale do przekminki to jak w tych obfitszych tekstowo wariacjach)
+
+  # 5 mechanizm doklejania bloków dodatkowych na bazie danych z wariacji w wordzie (przydatny mechanizm if last = lewo then prawo)
+  #   5a przeszukiwanie listy komponentów w poszukiwaniu słów kluczy? for block in templateBlocks: for component in componentBlocks: if blockWord in component -> mechanizm wklejania tekstu do bloku szablonowego
+
+
+  infinityBase = 
+  ultimateBase = 
+  proBase = 
+
 word = Word()
 # word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity X510 [I].docx")
 word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity R550 [S].docx")
