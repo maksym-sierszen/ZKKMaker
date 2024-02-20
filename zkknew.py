@@ -34,7 +34,7 @@ class Word():
     else:
         return None
 
-
+  # CHYBA Usuwa cyfrę z modelu w celu uproszczenia tekstu tak jak ustalone było czyli np [S01] -> [S]
   def simplifyVariation(self, after, seriesName):
     base = seriesName[:-1]
     toSimplify = re.escape(base) + ".{0,3}"
