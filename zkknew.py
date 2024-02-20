@@ -18,7 +18,7 @@ class Word():
     self.after = ""
     self.variation = 1
 
-  def getData(self, wordFile):
+  def extractData(self, wordFile):
     self.document = docx2txt.process(wordFile)
     self.textBlocks = self.document.split('\n\n')
     self.seriesName = os.path.basename(wordFile)
@@ -116,28 +116,31 @@ class Template():
   #   5a przeszukiwanie listy komponentów w poszukiwaniu słów kluczy? for block in templateBlocks: for component in componentBlocks: if blockWord in component -> mechanizm wklejania tekstu do bloku szablonowego
 
 
-  infinityBase = 
-  ultimateBase = 
-  proBase = 
-
-word = Word()
-# word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity X510 [I].docx")
-word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity R550 [S].docx")
-word.splitText(word.before, word.after, word.splitter, word.variation)
+  infinityBase = "test"
+  #ultimateBase = 
+  #proBase = 
 
 
-for i, block in enumerate(word.variationBlocks):
-    print(f"\n---WERSJA {i+1}---")
-    print(block)
+class main():
+
+  word = Word()
+  word.extractData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity X510 [I].docx")
+  #word.extractData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity R550 [S].docx")
+  word.splitText(word.before, word.after, word.splitter, word.variation)
 
 
-#word.getData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity R550 [S].docx")
+  for i, block in enumerate(word.variationBlocks):
+      print(f"\n---WERSJA {i+1}---")
+      print(block)
+
+
+#word.extractData(r"/Users/maksymsierszen/Desktop/ZKKMaker/Opis Komputronik Infinity R550 [S].docx")
 
 #sprawdź ilość modeli w pliku Word
 #test
 # print(checkvariationAmount(r"Opis Komputronik Infinity R550 [S].docx"))
 
-
+main = main()
 
 
 
@@ -172,3 +175,12 @@ for i, block in enumerate(word.variationBlocks):
 # sprawdź czy klasy i id są takie same i czy można css dodawać na końcu też po prostu do pliku w zależności od serii 
 
 # +na koniec:   mechanizm
+
+
+#1. otwórz plik Word
+#2. sprawdź która seria
+#3. dopasuj odpowiedni szablon do tej serii
+#4. extract data z worda do prostszego formatu
+  #4.1. sprawdź ile wariacji jest
+#5. wstaw data do szablonu po kolei następne iteracje
+  #5.1 zapisuj je do pliku
